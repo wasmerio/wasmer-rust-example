@@ -3,18 +3,15 @@ extern crate wasmer_runtime;
 
 use std::fs::File;
 use std::io::prelude::*;
-use std::slice;
 use std::str;
 
 use wasmer_clif_backend::CraneliftCompiler;
 use wasmer_runtime::{
     self as runtime,
-    backing::LocalBacking,
-    error::Result,
     export::{Context, Export, FuncPointer},
     import::{Imports, NamespaceMap},
     structures::TypedIndex,
-    types::{FuncSig, LocalMemoryIndex, Type, Value},
+    types::{FuncSig, MemoryIndex, Type},
     vm,
 };
 
@@ -24,7 +21,7 @@ fn main() {
         File::open("../wasm-sample-app/target/wasm32-unknown-unknown/release/wasm_sample_app.wasm")
             .unwrap();
     let mut wasm_bytes = Vec::new();
-    wasm_file.read_to_end(&mut wasm_bytes);
+    wasm_file.read_to_end(&mut wasm_bytes).unwrap();
 
     // Compile a WebAssembly Module from wasm bytes
     let module = runtime::compile(&wasm_bytes, &CraneliftCompiler::new()).unwrap();
@@ -53,15 +50,14 @@ fn main() {
     let mut instance = module.instantiate(imports).unwrap();
 
     // Call the instance's exported function
-    instance.call("hello_wasm", &[]);
+    instance.call("hello_wasm", &[]).unwrap();
 }
 
 extern "C" fn print_str(ptr: i32, len: i32, vmctx: *mut vm::Ctx) {
-    //    // read the memory
-    //    let str_ptr_start = (*(*vmctx).local_backing).memory(LocalMemoryIndex::new(0)).base().offset(ptr);
-    //    let slice = unsafe { slice::from_raw_parts(str_ptr_start, len) };
-    //    // convert bytes to string
-    //    let string = str::from_utf8(&slice).unwrap();
-    //    println!("{}", string);
-    println!("TODO implement print_str");
+    // get the linear memory
+    let memory = unsafe { (*vmctx).memory(MemoryIndex::new(0)) };
+
+    // convert bytes to string
+    let string = str::from_utf8(&memory[(ptr as usize)..(len as usize)]).unwrap();
+    println!("{}", string);
 }
