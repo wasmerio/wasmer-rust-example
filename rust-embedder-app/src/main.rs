@@ -58,6 +58,6 @@ extern "C" fn print_str(ptr: i32, len: i32, vmctx: *mut vm::Ctx) {
     let memory = unsafe { (*vmctx).memory(MemoryIndex::new(0)) };
 
     // convert bytes to string
-    let string = str::from_utf8(&memory[(ptr as usize)..(len as usize)]).unwrap();
+    let string = str::from_utf8(&memory[(ptr as usize)..((ptr + len) as usize)]).unwrap();
     println!("{}", string);
 }
