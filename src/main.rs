@@ -18,7 +18,7 @@ use wasmer_runtime::{
 fn main() {
     // Read the wasm bytes of our sample application
     let mut wasm_file =
-        File::open("../wasm-sample-app/target/wasm32-unknown-unknown/release/wasm_sample_app.wasm")
+        File::open("./wasm-sample-app/target/wasm32-unknown-unknown/release/wasm_sample_app.wasm")
             .unwrap();
     let mut wasm_bytes = Vec::new();
     wasm_file.read_to_end(&mut wasm_bytes).unwrap();
