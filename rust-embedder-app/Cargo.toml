@@ -1,0 +1,9 @@
+[package]
+name = "rust_embedder_app"
+version = "0.1.0"
+authors = ["Brandon Fish <brandon.j.fish@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+wasmer-clif-backend = { git = "https://github.com/wasmerio/wasmer", branch = "feature/vm_refactor" }
+wasmer-runtime = { git = "https://github.com/wasmerio/wasmer", branch = "feature/vm_refactor" }
