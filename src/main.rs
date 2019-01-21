@@ -43,7 +43,7 @@ fn main() {
             // The allowed types are `I32`, `I64`, `F32`, and `F64`.
             //
             // Make sure to check this carefully!
-            [I32, I32] -> []
+            [u32, u32] -> []
         ),
     );
 
