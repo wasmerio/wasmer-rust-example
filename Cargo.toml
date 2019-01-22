@@ -5,5 +5,5 @@ authors = ["Brandon Fish <brandon.j.fish@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-wasmer-clif-backend = { git = "https://github.com/wasmerio/wasmer", branch = "feature/vm_refactor" }
-wasmer-runtime = { git = "https://github.com/wasmerio/wasmer", branch = "feature/vm_refactor" }
+wasmer-clif-backend = { git = "https://github.com/wasmerio/wasmer", branch = "master" }
+wasmer-runtime = { git = "https://github.com/wasmerio/wasmer", branch = "master" }

@@ -24,40 +24,25 @@ fn main() {
     // Compile our webassembly into a wasmer-runtime `Module`.
     let module = runtime::compile(&wasm_bytes, &compiler).unwrap();
 
-    // Let's define that "env" namespace that was implicitly used
-    // by our sample application.
+    // Let's define the import object used to import our function
+    // into our webassembly sample application.
     //
-    // First, we have to create a `NamespaceMap` and insert our "print_str"
-    // function into it. We define that function lower down on the page.
-    let mut env_namespace = Namespace::new();
-    env_namespace.insert(
-        // This is the name of the function we want to expose.
-        "print_str",
-        export_func!(
-            // This is the function that we're importing
-            // into our sample application. It's defined lower
-            // on the page.
-            print_str,
-            // This tells the runtime what the signature (the parameter
-            // and return types) of the function we're defining here is.
-            // The allowed types are `I32`, `I64`, `F32`, and `F64`.
-            //
-            // Make sure to check this carefully!
-            [u32, u32] -> []
-        ),
-    );
-
-    // This lets us register our namespace and import it into this module
-    // as we instantiate it.
-    let mut import_object = ImportObject::new();
-
-    // Register our namespace with the name: "env".
+    // We've defined a macro that makes it super easy.
     //
-    // imports.register(...) is designed to take any type
-    // that implements the `Namespace` trait. This even lets us
-    // register an already existing wasmer `Instance`
-    // as an imported namespace.
-    import_object.register("env", env_namespace);
+    // The signature tells the runtime what the signature (the parameter
+    // and return types) of the function we're defining here is.
+    // The allowed types are `i32`, `u32`, `i64`, `u64`,
+    // `f32`, and `f64`.
+    //
+    // Make sure to check this carefully!
+    let import_object = imports! {
+        // Define the "env" namespace that was implicitly used
+        // by our sample application.
+        "env" => {
+            // name         // func    // signature
+            "print_str" => print_str<[u32, u32] -> []>,
+        },
+    };
 
     // Here we go!
     //
