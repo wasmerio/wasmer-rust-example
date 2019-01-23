@@ -70,8 +70,8 @@ extern "C" fn print_str(ptr: u32, len: u32, vmctx: &mut vm::Ctx) {
     let str_slice = &memory[ptr as usize..(ptr + len) as usize];
 
     // Convert the subslice to a `&str`.
-    let str = str::from_utf8(str_slice).unwrap();
+    let string = str::from_utf8(str_slice).unwrap();
 
     // Print it!
-    println!("{}", str);
+    println!("{}", string);
 }
