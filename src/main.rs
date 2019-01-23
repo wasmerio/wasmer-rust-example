@@ -1,9 +1,7 @@
-extern crate wasmer_clif_backend;
 extern crate wasmer_runtime;
 
 use std::{fs::File, io::prelude::*, str};
 
-use wasmer_clif_backend::CraneliftCompiler;
 use wasmer_runtime::{self as runtime, prelude::*};
 
 fn main() {
@@ -15,14 +13,8 @@ fn main() {
     let mut wasm_bytes = Vec::new();
     wasm_file.read_to_end(&mut wasm_bytes).unwrap();
 
-    // Instantiate the compiler we're going to use. The wasmer-runtime
-    // is designed to support multiple compiler backends. Right now,
-    // only the Cranelift compiler is supported, but we're working on
-    // an LLVM backend as well!
-    let compiler = CraneliftCompiler::new();
-
     // Compile our webassembly into a wasmer-runtime `Module`.
-    let module = runtime::compile(&wasm_bytes, &compiler).unwrap();
+    let module = runtime::compile(&wasm_bytes).unwrap();
 
     // Let's define the import object used to import our function
     // into our webassembly sample application.
