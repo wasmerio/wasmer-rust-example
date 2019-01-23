@@ -1,21 +1,18 @@
 extern crate wasmer_runtime;
 
-use std::{fs::File, io::prelude::*, str};
+use std::str;
 
-use wasmer_runtime::{self as runtime, prelude::*};
+use wasmer_runtime::{
+    imports,
+    instantiate,
+    error,
+    Ctx,
+};
 
-fn main() {
-    // Read the wasm file produced by our sample application...
-    let mut wasm_file =
-        File::open("./wasm-sample-app/target/wasm32-unknown-unknown/release/wasm_sample_app.wasm")
-            .unwrap();
-    // ... and put it into a vector.
-    let mut wasm_bytes = Vec::new();
-    wasm_file.read_to_end(&mut wasm_bytes).unwrap();
+// Make sure that the compiled wasm-sample-app is accessible at this path.
+static WASM: &'static [u8] = include_bytes!("../wasm-sample-app/target/wasm32-unknown-unknown/release/wasm_sample_app.wasm");
 
-    // Compile our webassembly into a wasmer-runtime `Module`.
-    let module = runtime::compile(&wasm_bytes).unwrap();
-
+fn main() -> error::Result<()> {
     // Let's define the import object used to import our function
     // into our webassembly sample application.
     //
@@ -36,26 +33,19 @@ fn main() {
         },
     };
 
-    // Here we go!
-    //
-    // Instantiate the module with the imports we just created
-    // to create, you guessed it, an `Instance`.
-    //
-    // You can create any number of instances with a single module.
-    let mut instance = module.instantiate(import_object).unwrap();
+    // Compile our webassembly into an `Instance`.
+    let mut instance = instantiate(WASM, import_object)?;
 
-    // At last, we can call the function exported by our webassembly
-    // sample application.
-    //
-    // Since our exported function doesn't receive any parameters,
-    // we just pass it an empty slice as the parameter list.
-    instance.call("hello_wasm", &[]).unwrap();
+    // Call our exported function!
+    instance.call("hello_wasm", &[])?;
+
+    Ok(())
 }
 
 // Let's define our "print_str" function.
 //
 // The declaration must start with "extern" or "extern "C"".
-extern "C" fn print_str(ptr: u32, len: u32, vmctx: &mut vm::Ctx) {
+extern fn print_str(ptr: u32, len: u32, ctx: &mut Ctx) {
     // Get a slice that maps to the memory currently used by the webassembly
     // instance.
     //
@@ -64,7 +54,7 @@ extern "C" fn print_str(ptr: u32, len: u32, vmctx: &mut vm::Ctx) {
     //
     // Therefore, we don't assume you always just want to access first
     // memory and force you to specify the first memory.
-    let memory = vmctx.memory(0);
+    let memory = ctx.memory(0);
 
     // Get a subslice that corresponds to the memory used by the string.
     let str_slice = &memory[ptr as usize..(ptr + len) as usize];
