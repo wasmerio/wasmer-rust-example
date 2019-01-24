@@ -5,4 +5,4 @@ authors = ["Brandon Fish <brandon.j.fish@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-wasmer-runtime = { git = "https://github.com/wasmerio/wasmer", branch = "master" }
+wasmer-runtime = "0.1.1"
