@@ -11,7 +11,7 @@ The `wasm-sample-app` directory contains an example rust wasm app to run in the 
 
 ## Running
 
-```
+```bash
 # Building the wasm-sample-app
 cd wasm-sample-app && cargo build --release && cd ..
 
