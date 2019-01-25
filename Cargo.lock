@@ -237,7 +237,7 @@ dependencies = [
 name = "rust_embedder_app"
 version = "0.1.0"
 dependencies = [
- "wasmer-runtime 0.2.0 (git+https://github.com/wasmerio/wasmer)",
+ "wasmer-runtime 0.1.3 (git+https://github.com/wasmerio/wasmer?branch=fix/resolve-index)",
 ]
 
 [[package]]
@@ -360,8 +360,8 @@ dependencies = [
 
 [[package]]
 name = "wasmer-clif-backend"
-version = "0.2.0"
-source = "git+https://github.com/wasmerio/wasmer#ab65477d1faab2f857adcce191672f067e07a2ed"
+version = "0.1.1"
+source = "git+https://github.com/wasmerio/wasmer?branch=fix/resolve-index#65872a1be4bba3dd8565dc876f58f63ebcf6f086"
 dependencies = [
  "byteorder 1.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "cranelift-codegen 0.26.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -371,23 +371,23 @@ dependencies = [
  "hashbrown 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "nix 0.12.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "target-lexicon 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "wasmer-runtime-core 0.2.0 (git+https://github.com/wasmerio/wasmer)",
+ "wasmer-runtime-core 0.1.2 (git+https://github.com/wasmerio/wasmer?branch=fix/resolve-index)",
  "wasmparser 0.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "wasmer-runtime"
-version = "0.2.0"
-source = "git+https://github.com/wasmerio/wasmer#ab65477d1faab2f857adcce191672f067e07a2ed"
+version = "0.1.3"
+source = "git+https://github.com/wasmerio/wasmer?branch=fix/resolve-index#65872a1be4bba3dd8565dc876f58f63ebcf6f086"
 dependencies = [
- "wasmer-clif-backend 0.2.0 (git+https://github.com/wasmerio/wasmer)",
- "wasmer-runtime-core 0.2.0 (git+https://github.com/wasmerio/wasmer)",
+ "wasmer-clif-backend 0.1.1 (git+https://github.com/wasmerio/wasmer?branch=fix/resolve-index)",
+ "wasmer-runtime-core 0.1.2 (git+https://github.com/wasmerio/wasmer?branch=fix/resolve-index)",
 ]
 
 [[package]]
 name = "wasmer-runtime-core"
-version = "0.2.0"
-source = "git+https://github.com/wasmerio/wasmer#ab65477d1faab2f857adcce191672f067e07a2ed"
+version = "0.1.2"
+source = "git+https://github.com/wasmerio/wasmer?branch=fix/resolve-index#65872a1be4bba3dd8565dc876f58f63ebcf6f086"
 dependencies = [
  "errno 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "hashbrown 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -482,9 +482,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum void 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)" = "6a02e4885ed3bc0f2de90ea6dd45ebcbb66dacffe03547fadbb0eeae2770887d"
 "checksum wabt 0.7.4 (registry+https://github.com/rust-lang/crates.io-index)" = "74e463a508e390cc7447e70f640fbf44ad52e1bd095314ace1fdf99516d32add"
 "checksum wabt-sys 0.5.4 (registry+https://github.com/rust-lang/crates.io-index)" = "a6265b25719e82598d104b3717375e37661d41753e2c84cde3f51050c7ed7e3c"
-"checksum wasmer-clif-backend 0.2.0 (git+https://github.com/wasmerio/wasmer)" = "<none>"
-"checksum wasmer-runtime 0.2.0 (git+https://github.com/wasmerio/wasmer)" = "<none>"
-"checksum wasmer-runtime-core 0.2.0 (git+https://github.com/wasmerio/wasmer)" = "<none>"
+"checksum wasmer-clif-backend 0.1.1 (git+https://github.com/wasmerio/wasmer?branch=fix/resolve-index)" = "<none>"
+"checksum wasmer-runtime 0.1.3 (git+https://github.com/wasmerio/wasmer?branch=fix/resolve-index)" = "<none>"
+"checksum wasmer-runtime-core 0.1.2 (git+https://github.com/wasmerio/wasmer?branch=fix/resolve-index)" = "<none>"
 "checksum wasmparser 0.22.1 (registry+https://github.com/rust-lang/crates.io-index)" = "f46e666ecb4a406483a59a49f9d0c17f327e70da53a128eccddae2eadb95865c"
 "checksum wasmparser 0.23.0 (registry+https://github.com/rust-lang/crates.io-index)" = "b5e01c420bc7d36e778bd242e1167b079562ba8b34087122cc9057187026d060"
 "checksum winapi 0.2.8 (registry+https://github.com/rust-lang/crates.io-index)" = "167dc9d6949a9b857f3451275e911c3f44255842c1f7a76f33c55103a909087a"
