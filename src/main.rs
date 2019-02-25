@@ -6,6 +6,7 @@ use wasmer_runtime::{
     imports,
     instantiate,
     error,
+    func,
     Ctx,
 };
 
@@ -28,13 +29,13 @@ fn main() -> error::Result<()> {
         // Define the "env" namespace that was implicitly used
         // by our sample application.
         "env" => {
-            // name         // func    // signature
-            "print_str" => print_str<[u32, u32] -> []>,
+            // name        // the func! macro autodetects the signature
+            "print_str" => func!(print_str),
         },
     };
 
     // Compile our webassembly into an `Instance`.
-    let mut instance = instantiate(WASM, import_object)?;
+    let instance = instantiate(WASM, &import_object)?;
 
     // Call our exported function!
     instance.call("hello_wasm", &[])?;
@@ -45,7 +46,7 @@ fn main() -> error::Result<()> {
 // Let's define our "print_str" function.
 //
 // The declaration must start with "extern" or "extern "C"".
-extern fn print_str(ptr: u32, len: u32, ctx: &mut Ctx) {
+fn print_str(ctx: &mut Ctx, ptr: u32, len: u32) {
     // Get a slice that maps to the memory currently used by the webassembly
     // instance.
     //
@@ -57,10 +58,10 @@ extern fn print_str(ptr: u32, len: u32, ctx: &mut Ctx) {
     let memory = ctx.memory(0);
 
     // Get a subslice that corresponds to the memory used by the string.
-    let str_slice = &memory[ptr as usize..(ptr + len) as usize];
+    let str_vec: Vec<_> = memory.view()[ptr as usize..(ptr + len) as usize].iter().map(|cell| cell.get()).collect();
 
     // Convert the subslice to a `&str`.
-    let string = str::from_utf8(str_slice).unwrap();
+    let string = str::from_utf8(&str_vec).unwrap();
 
     // Print it!
     println!("{}", string);
