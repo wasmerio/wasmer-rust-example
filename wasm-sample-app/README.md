@@ -5,3 +5,7 @@
 
 ## Building
 `cargo build --release`
+
+
+## Pass String from Host to Wasm Example
+To see an example of passing a string to web assembly from rust see the `examples/string.rs` file.  This can be run using `cargo run --example string`.
