@@ -1,0 +1,71 @@
+version: 2
+  test-stable:
+    docker:
+      - image: circleci/rust:latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v8-test-cargo-cache-linux-stable-{{ arch }}-{{ checksum "Cargo.lock" }}
+      - run:
+          name: Install wasm toolchain
+          command: rustup target add wasm32-unknown-unknown
+      - run:
+          name: Build wasm sample
+          command: cargo build --manifest-path wasm-sample-app/Cargo.toml --release --target wasm32-unknown-unknown
+      - run:
+          name: Run sample
+          command: cargo run
+      - save_cache:
+          paths:
+            - /usr/local/cargo/registry
+            - target/release/.fingerprint
+            - target/release/build
+            - target/release/deps
+          key: v8-test-cargo-cache-linux-stable-{{ arch }}-{{ checksum "Cargo.lock" }}
+  test-and-build-macos:
+    macos:
+      xcode: "9.0"
+    steps:
+      - checkout
+      - run:
+          name: "Pull dependencies"
+          command: |
+            git submodule init
+            git submodule update
+      - restore_cache:
+          keys:
+            - v8-cargo-cache-darwin-stable-{{ arch }}-{{ checksum "Cargo.lock" }}
+      - run:
+          name: Install Rust
+          command: |
+            curl -sSf https://sh.rustup.rs | sh -s -- -y
+            export PATH="$HOME/.cargo/bin:$PATH"
+            rustup target add wasm32-unknown-unknown
+            cargo --version
+      - run:
+          name: Build wasm sample
+          command: |
+            export PATH="$HOME/.cargo/bin:$PATH"
+            cargo build --manifest-path wasm-sample-app/Cargo.toml --release --target wasm32-unknown-unknown
+      - run:
+          name: Run sample
+          command: |
+            export PATH="$HOME/.cargo/bin:$PATH"
+            cargo run
+      - save_cache:
+          paths:
+            - ~/.cargo/registry/
+            - target/release/.fingerprint
+            - target/release/build
+            - target/release/deps
+            - wapm-cli/target/release/.fingerprint
+            - wapm-cli/target/release/build
+            - wapm-cli/target/release/deps
+          key: v8-cargo-cache-darwin-stable-{{ arch }}-{{ checksum "Cargo.lock" }}
+workflows:
+  version: 2
+  main:
+    jobs:
+      - test-and-build:
+      - test-and-build-macos:
