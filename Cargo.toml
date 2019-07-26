@@ -1,7 +1,7 @@
 [package]
 name = "rust_embedder_app"
-version = "0.2.0"
-authors = ["Brandon Fish <brandon.j.fish@gmail.com>"]
+version = "0.3.0"
+authors = ["The Wasmer Engineering Team <engineering@wasmer.io>"]
 edition = "2018"
 
 [workspace]

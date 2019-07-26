@@ -767,7 +767,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "rust_embedder_app"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "wasmer-runtime 0.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
