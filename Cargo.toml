@@ -1,10 +1,10 @@
 [package]
 name = "rust_embedder_app"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["The Wasmer Engineering Team <engineering@wasmer.io>"]
 edition = "2018"
 
 [workspace]
 
 [dependencies]
-wasmer-runtime = "0.8.0"
+wasmer-runtime = "0.11.0"
