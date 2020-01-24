@@ -1,3 +1,7 @@
+# [DEPRECATED]
+
+Please see the [Wasmer Rust Integration documentation](https://docs.wasmer.io/runtime/rust-integration/runtime-rust-integration-installation) for an up-to-date example of user the Wasmer Rust Integration / Embedding.
+
 # Rust Embedder App Example
 
 This repo showcases how to use the [wasmer-runtime](https://crates.io/crates/wasmer-runtime/) from Rust, based on the blogpost: https://medium.com/wasmer/executing-webassembly-in-your-rust-application-d5cd32e8ce46
