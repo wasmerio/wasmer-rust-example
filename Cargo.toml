@@ -7,4 +7,4 @@ edition = "2018"
 [workspace]
 
 [dependencies]
-wasmer-runtime = "0.16.0"
+wasmer-runtime = "0.17.1"
